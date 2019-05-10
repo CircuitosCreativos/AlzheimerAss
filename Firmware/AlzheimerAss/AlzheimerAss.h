@@ -10,4 +10,8 @@
 #define DC      5
 #define BL      21
 
+//parametros constantes
+//Comentar esta linea para deshabilitar impresiones y ahorrar espacio
+//#define BLYNK_PRINT Serial
+
 #endif
