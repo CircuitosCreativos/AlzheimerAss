@@ -3,15 +3,15 @@ void iniciaSensor() {
   //Inicia el Sensor Hub nano y give an error if there is any problem
   String datos; //Almacena los datos entregados por el sensor
   enviarComando(INFO);
-  while (HC05.find("IFX_NanoHu") == false) {
+  while (HC05.find("IFX_NanoHub") == false) {
     enviarComando(INFO);
     Serial.println("ERROR");
-    //showErrorMessage();
+    mensajeError();
   }
   datos = HC05.readStringUntil('\n');
   Serial.println(datos);
   datos = "";
-  //showConnectedMessage();
+  sensorConectado(0, 10);
   delay(1500);
 }
 //------------------------------------------------------------
