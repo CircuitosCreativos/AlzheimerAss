@@ -20,52 +20,67 @@
   ---------------------------------------------------------------*/
 
 //Incluimos las librerias y archivos de cabecera necesarios
-#include <BlynkSimpleEsp32.h>
-#include <WiFiClient.h>
-#include <WiFi.h>
-#include "AlzheimerAss.h"
-#include <U8g2lib.h>
-#include <SPI.h>
-
-// You should get Auth Token in the Blynk App.
-// Go to the Project Settings (nut icon).
-char auth[] = "1cecbf4b62eb4d6c8cde5a590933f295";
-
-// Your WiFi credentials.
-// Set password to "" for open networks.
-char ssid[] = "Oficinawh";
-char pass[] = "6681Maximiliano";
+#include <BlynkSimpleEsp32.h> //comunicacion con la app Blynk
+#include <HardwareSerial.h>   //Puerto serial para el HC-05
+#include "AlzheimerAss.h"     //Archivo de cabezera del proyecto
+#include <U8g2lib.h>          //Controla la pantala LCD
 //------------------------------------------------------------
 
 //instanciamos los objetos de las librerias
 //LCD Nokia 5110
 U8G2_PCD8544_84X48_F_4W_SW_SPI u8g2(U8G2_R0, CLK, DIN, CE, DC, RST);
+HardwareSerial HC05(2);   //Usaremos la UART2 del ESP32
+//------------------------------------------------------------
+
+//Declaramos las variables globales necesarias
+//Comunicacion con la App de Blynk mediante WiFi
+char auth[] = "077a39adf68140f59a6d3a4e4221951";  //Token
+char ssid[] = "Nexxt_505B10";   //Nombre de la red
+char pass[] = "Administrador";  //Contraseña (WPA2)
+
+//Banderas de control
+bool btConectado = false; //Indica si la conexion bluetooth se establecio
 //------------------------------------------------------------
 
 //Funcion de configuracion
 void setup() {
+  //iniciamos las comunicaciones Serial y Bluetooth
   Serial.begin(115200);
+  HC05.begin(115200, SERIAL_8N1, RXD2, TXD2);
 
-  //Declaramos la conexion con la aplicacion Blynk
-  Blynk.begin(auth, ssid, pass);
+  u8g2.setBusClock(SPI_CLK);//EL driver del LCD trabaja excelente a 1MHz
+  u8g2.begin(); //iniciamos el LCD Nokia 5110
+
+  //configuramos los pines de entrada/salida
+  pinMode(STATUS, INPUT);
+  pinMode(BL, OUTPUT);
+
+  //Activamos la luz de fondo y mostramos el mensaje de inicio
+  luzFondo(true);
+  mensajeInicio(13, 15);
+  delay(2000);    //Esperamos 2 segundos
+
+  //Revisamos si la conexion con el sensor Hub se establecio
+  while (!btConectado) {
+    if (digitalRead(STATUS) == HIGH) {
+      btConectado = true;
+    }
+    else {
+      esperaConexion(8, 15);
+    }
+  }
+  iniciaSensor();
+
+  //Blynk.begin(auth, ssid, pass);//conexion WiFi con la aplicacion Blynk
   //Tambien se puede especificar el servidor
   //Blynk.begin(auth, ssid, pass, "blynk-cloud.com", 80);
   //Blynk.begin(auth, ssid, pass, IPAddress(192,168,1,100), 8080);
-
-  pinMode(BL, OUTPUT);
-
-  digitalWrite(BL, LOW);
-
-  u8g2.begin();
 }
 //------------------------------------------------------------
 
 //Funcion principal
 void loop() {
-  digitalWrite(BL, HIGH);
-  mensajeInicio(13, 15);
-
-  Blynk.run();
+  //Blynk.run();
   //Aqui se puede colocar cogido adicional dependiendo del proyecto
   //Recuerde evitar la funcion delay();
 }
