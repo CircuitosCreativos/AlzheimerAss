@@ -23,9 +23,17 @@
 #define SENSOR_INFO   "$sinfo id=1"
 #define LOW_ENERGY    "$set_mode sid=1;md=mode;val=bg"
 #define STANDARD_MODE "$set_mode sid=1;md=prs_osr;val=16"
-#define HIGH_PRECI    "$set_mode sid=1;md=prs_mr;val=32"
+#define HIGH_PRESI    "$set_mode sid=1;md=prs_mr;val=32"
 #define START         "$start_sensor id=1"
 #define STOP          "$stop id="
+
+//Aplicacion Blynk Alzheimer_Ass
+//Defining Blynk virtual pins
+#define vTEMP_PIN     V0    //pin virtual temperatura en la App
+#define vPRES_PIN     V1    //pin virtual presion barometrica en la App
+#define vALTURA_PIN   V2    //pin virtual altura en la App
+#define vEVENTOR_PIN  V3    //pin virtual en la App
+#define vFALL_PIN     V4    //pin virtual en la App
 
 //Pantalla Nokia 5110
 #define SPI_CLK   1000000 //Velocidad bus SPI (1MHz)    

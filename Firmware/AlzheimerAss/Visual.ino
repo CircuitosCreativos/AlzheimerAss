@@ -59,3 +59,38 @@ void mensajeError() {
   u8g2.sendBuffer();
 }
 //------------------------------------------------------------
+//Muestra la hora y la fecha en el LCD
+void verHoraFecha() {
+  //Displays the time and date from the RTC widget in Blynk in 24 hours format
+  if (year() == 1970 && Serial.available()) {
+    Serial.println("El reloj no esta sincronizado!!");
+  }
+  else if (year() != 1970) {
+    char bufHours[3];
+    char bufColon[2];
+    char bufMinutes[3];
+    char bufDate[11];
+
+    String currentHours = String(hour());
+    String colon = ":";
+    String currentMinutes = String(minute());
+    String currentDate = String(day()) + "/" + month() + "/" + year();
+
+    String(currentHours).toCharArray(bufHours, 3);
+    String(colon).toCharArray(bufColon, 2);
+    String(currentMinutes).toCharArray(bufMinutes, 3);
+    String(currentDate).toCharArray(bufDate, 11);
+
+    u8g2.clearBuffer();
+    u8g2.setFont(u8g2_font_inr33_mf);
+    u8g2.drawStr(30, 30, bufColon);
+    u8g2.setFont(u8g2_font_logisoso32_tn);
+    u8g2.drawStr(0, 32, bufHours);
+    u8g2.drawStr(45, 32, bufMinutes);
+    u8g2.setFont(u8g2_font_saikyosansbold8_8n);
+    u8g2.drawHLine(0, 35, 85);
+    u8g2.drawStr(0, 46, bufDate);
+    u8g2.sendBuffer();
+  }
+}
+//------------------------------------------------------------
