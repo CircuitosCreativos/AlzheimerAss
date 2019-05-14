@@ -42,7 +42,7 @@ void menuAlarmas() {
         mensajePanico();
         alarma(FREC_PANIC, 3);
       }
-      else if (tiempoContador > 10) {
+      else if (tiempoContador > 9) {
         estadoActual = estado::HORA_FECHA;
         mensajePanico();
         alarma(FREC_PANIC, 3);
@@ -52,10 +52,38 @@ void menuAlarmas() {
       break;
 
     case TEMP_HIGH:
-      verHoraFecha();
+      if (temp >= TEMP_MAX && tiempoContador < 100) {
+        mensajeSensorData();
+      }
+      //envia una notificacion cada 10 segundos hasta que la
+      //temperatura disminuya
+      else if (temp >= TEMP_MAX && tiempoContador == 100) {
+        Blynk.notify("Peligro Temperatura elevada!!");
+        mensajeTempAlta();
+        alarma(FREC_PANIC, 3);
+      }
+      else if (temp >= TEMP_MAX && tiempoContador == 105) {
+        Blynk.notify("Peligro Temperatura elevada!!");
+        mensajeTempAlta();
+        alarma(FREC_PANIC, 3);
+      }
+      else if (tiempoContador > 109) {
+        Blynk.setProperty(vTEMP_PIN, "color", "#FFFFFF");
+        Blynk.notify("Peligro Temperatura elevada!!");
+        estadoActual = estado::HORA_FECHA;
+        mensajeTempAlta();
+        alarma(FREC_PANIC, 3);
+        tiempoContador = 0;
+      }
+      else if (temp < TEMP_MAX) {
+        Blynk.setProperty(vTEMP_PIN, "color", "#FFFFFF");
+        estadoActual = estado::HORA_FECHA;
+        tiempoContador = 0;
+      }
+      tiempoContador++;
       break;
   }
-  Serial.println(estadoActual);
+  //Serial.println(estadoActual);
 }
 //-----------------------------------------------------------
 
@@ -79,6 +107,16 @@ void botonPanico() {
     Blynk.notify("Boton de panico activado!!");
     estadoActual = estado:: PANIC;
     tiempoContador = 0;
+  }
+}
+//------------------------------------------------------------
+
+//Funcion paras detectar altas temperaturas
+void tempAlta(float tempMax) {
+  if (temp >= tempMax && estadoActual != estado::TEMP_HIGH) {
+    //colocamos el Widget en rojo para indicar el peligro
+    Blynk.setProperty(vTEMP_PIN, "color", "#FF0000");
+    estadoActual = estado::TEMP_HIGH;
   }
 }
 //------------------------------------------------------------

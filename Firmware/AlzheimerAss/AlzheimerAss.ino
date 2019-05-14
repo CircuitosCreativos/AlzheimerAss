@@ -53,9 +53,7 @@ enum estado {
 estado estadoActual;
 
 //Banderas de control
-bool caidaConfirm = false;//Indica si el paciente sufrio una caida
 bool btConectado = false; //Indica si la conexion bluetooth se establecio
-bool alarma_ON = false;   //Controla el tiempo de las alarmas
 
 //Variables medidas por el sensor Hub
 float temp;
@@ -125,5 +123,6 @@ void loop() {
   leerDatosSensor();
   confirmarCaida();
   botonPanico();
+  tempAlta(TEMP_MAX);
 }
 //------------------------------------------------------------

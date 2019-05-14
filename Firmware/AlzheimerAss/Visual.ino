@@ -65,7 +65,7 @@ void verHoraFecha() {
   if (year() == 1970 && Serial.available()) {
     Serial.println("El reloj no esta sincronizado!!");
   }
-  else if (year() != 1970 && alarma_ON == false) {
+  else if (year() != 1970) {
     char bufHours[3];
     char bufColon[2];
     char bufMinutes[3];
@@ -149,6 +149,17 @@ void mensajePanico() {
   u8g2.drawStr(10, 10, "Boton de");
   u8g2.drawStr(17, 22, "panico");
   u8g2.drawStr(6, 34, "ACTIVADO!!");
+  u8g2.sendBuffer();
+}
+//------------------------------------------------------------
+
+//muestra un aviso cuando la temperatura esta muy elevada
+void mensajeTempAlta() {
+  u8g2.clearBuffer();
+  u8g2.setFont(u8g2_font_7x13B_tf);
+  u8g2.drawStr(14, 10, "Peligro");
+  u8g2.drawStr(6, 22, "temperatura");
+  u8g2.drawStr(8, 34, "ELEVADA!!");
   u8g2.sendBuffer();
 }
 //------------------------------------------------------------

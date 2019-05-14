@@ -42,6 +42,7 @@
 #define FREC_PANIC    200   //frecuencia buzzer para el boton de panico
 #define FREC_CAIDA    250   //frecuencia buzzer para las caidas
 #define INTERVALO     1000  //intervalo de tiempo revisar caidas (1seg)
+#define TEMP_MAX      40.0  //Umbral de temperatura para enviar notificacion
 #define UMBRAL        60    //Umbral de 60cm para detectar una caida
 #define TOLE          20    //Margen de tolerancia para detectar caidas
 #define CAIDA_SI      255
