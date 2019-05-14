@@ -95,21 +95,60 @@ void verHoraFecha() {
 }
 //------------------------------------------------------------
 
+//muestra los datos obtenidos del sensor Hub
+void mensajeSensorData() {
+  char bufT[10];  //Array para convertir el float en char
+  char bufP[10];  //Array para convertir el float en char
+  char bufA[10];  //Array para convertir el float en char
+
+  //Convertimos en char las variables float que entrega el sensor
+  String(temp).toCharArray(bufT, 10);
+  String(pres).toCharArray(bufP, 10);
+  String(altActual).toCharArray(bufA, 10);
+  u8g2.clearBuffer();
+  u8g2.setFont(u8g2_font_6x10_tf );
+
+  //mostramos la temperatura en grados Celsius
+  u8g2.drawStr(0, 10, "T:");
+  u8g2.drawStr(12, 10, bufT);
+  u8g2.drawStr(73, 10, "C");
+  u8g2.drawCircle(70, 4, 1, U8G2_DRAW_ALL);
+  u8g2.drawHLine(0, 12, 85);
+
+  //mostramos la presion barometrica en milibares
+  u8g2.drawStr(0, 26, "P:");
+  u8g2.drawStr(12, 26, bufP);
+  u8g2.drawStr(60, 26, "mBar");
+  u8g2.drawHLine(0, 28, 85);
+
+  //mostramos la altura con respecto al mar en metros
+  u8g2.drawStr(0, 42, "A:");
+  u8g2.drawStr(12, 42, bufA);
+  u8g2.drawStr(72, 42, "m");
+  u8g2.drawHLine(0, 44, 85);
+
+  u8g2.sendBuffer();  //Enviamos los valores al LCD
+}
+//------------------------------------------------------------
+
 //muestra un mensaje cuando el paciente sufre una caida
 void mensajeCaida() {
-  if (alarma_ON == true && tiempoContador < 5) {
-    u8g2.clearBuffer();
-    u8g2.setFont(u8g2_font_7x13B_tf);
-    u8g2.drawStr(10, 10, "Paciente");
-    u8g2.drawStr(15, 22, "Sufrio");
-    u8g2.drawStr(13, 34, "CAIDA!!");
-    u8g2.sendBuffer();
+  u8g2.clearBuffer();
+  u8g2.setFont(u8g2_font_7x13B_tf);
+  u8g2.drawStr(10, 10, "Paciente");
+  u8g2.drawStr(15, 22, "Sufrio");
+  u8g2.drawStr(13, 34, "CAIDA!!");
+  u8g2.sendBuffer();
+}
+//------------------------------------------------------------
 
-    alarma(250, 3);
-  }
-  else {
-    tiempoContador = 0;
-    alarma_ON = false;
-  }
+//muestra un aviso cuando se presiona el boton de panico
+void mensajePanico() {
+  u8g2.clearBuffer();
+  u8g2.setFont(u8g2_font_7x13B_tf);
+  u8g2.drawStr(10, 10, "Boton de");
+  u8g2.drawStr(17, 22, "panico");
+  u8g2.drawStr(6, 34, "ACTIVADO!!");
+  u8g2.sendBuffer();
 }
 //------------------------------------------------------------

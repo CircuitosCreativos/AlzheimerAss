@@ -16,7 +16,7 @@
 #define TXD2      17
 
 //Alarmas
-#define PANIC     25
+#define BOT_PANIC 14
 #define BUZZ      26
 #define LED       27
 
@@ -39,9 +39,10 @@
 #define vEVENTOR_PIN  V3    //pin virtual en la App
 #define vCAIDA_PIN    V4    //pin virtual en la App
 
-//Deteccion de caidas
+#define FREC_PANIC    200   //frecuencia buzzer para el boton de panico
+#define FREC_CAIDA    250   //frecuencia buzzer para las caidas
 #define INTERVALO     1000  //intervalo de tiempo revisar caidas (1seg)
-#define CAIDA         60    //Umbral de 60cm para detectar una caida
+#define UMBRAL        60    //Umbral de 60cm para detectar una caida
 #define TOLE          20    //Margen de tolerancia para detectar caidas
 #define CAIDA_SI      255
 #define CAIDA_NO      0
