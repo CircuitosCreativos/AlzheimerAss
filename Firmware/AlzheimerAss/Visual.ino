@@ -163,14 +163,3 @@ void mensajeTempAlta() {
   u8g2.sendBuffer();
 }
 //------------------------------------------------------------
-
-//muestra un aviso cuando es hora de hacer ejercicio
-void mensajeEjercicio() {
-  u8g2.clearBuffer();
-  u8g2.setFont(u8g2_font_7x13B_tf);
-  u8g2.drawStr(24, 10, "Hora");
-  u8g2.drawStr(30, 22, "de");
-  u8g2.drawStr(7, 34, "EJERCICIO!!");
-  u8g2.sendBuffer();
-}
-//------------------------------------------------------------

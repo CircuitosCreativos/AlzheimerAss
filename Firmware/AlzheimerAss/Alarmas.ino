@@ -82,18 +82,6 @@ void menuAlarmas() {
       }
       tiempoContador++;
       break;
-
-    case EJERCICIO:
-      mensajeEjercicio();
-      if (tiempoContador == 0) {
-        alarma(FREC_CAIDA, 4);
-      }
-      else if (tiempoContador > 20) {
-        estadoActual = estado::HORA_FECHA;
-        tiempoContador = 0;
-      }
-      tiempoContador++;
-      break;
   }
   //Serial.println(estadoActual);
 }
