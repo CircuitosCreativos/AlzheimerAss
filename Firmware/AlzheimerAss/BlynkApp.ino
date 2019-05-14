@@ -14,6 +14,17 @@ void enviaDatosSensor() {
 }
 //------------------------------------------------------------
 
+//Configuramos el color de los Widgets en la app
+void setBlynkWidgets() {
+  //usamos el color blanco para la tamperatura
+  Blynk.setProperty(vTEMP_PIN, "color", "#FFFFFF");
+  //usamos el color azul para la presion barometrica
+  Blynk.setProperty(vPRES_PIN, "color", "#00BBFF");
+  //usamos el color amarillo para la altura
+  Blynk.setProperty(vALTURA_PIN, "color", "#DDDD00");
+}
+//------------------------------------------------------------
+
 //Funcion para detectar las caidas
 void confirmarCaida() {
   //Algorithm to check if the patient is falling
