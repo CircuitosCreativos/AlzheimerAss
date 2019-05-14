@@ -47,7 +47,10 @@ enum estado {
   DATOS_SENSOR,
   CAIDA,
   PANIC,
-  TEMP_HIGH
+  TEMP_HIGH,
+  EJERCICIO,
+  MEDICAMENTO,
+  SANITARIO
 };
 
 estado estadoActual;

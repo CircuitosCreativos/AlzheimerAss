@@ -5,6 +5,28 @@ BLYNK_CONNECTED() {
 }
 //------------------------------------------------------------
 
+//verificamos con el Widget de eventos es hora de hacer ejercicio,
+//ir al baño o tomar medicamentos
+BLYNK_WRITE(vEVENTOR_PIN){
+  int valor =  param.asInt();
+
+  switch(valor){
+    case 1:
+    estadoActual= estado::EJERCICIO;
+    tiempoContador = 0;
+    break;
+
+    case 2:
+    estadoActual= estado::MEDICAMENTO;
+    break;
+
+    case 3:
+    estadoActual= estado::SANITARIO;
+    break;
+  }
+}
+//------------------------------------------------------------
+
 //Envia los datos a la aplicacion
 void enviaDatosSensor() {
   //Sending the sensor values to the Blynk server
