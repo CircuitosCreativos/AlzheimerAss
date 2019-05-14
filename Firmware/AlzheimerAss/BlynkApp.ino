@@ -22,12 +22,14 @@ void confirmarCaida() {
     float alturaComp = (altAnterior - altActual) * 100;
     if ((alturaComp >= (CAIDA - TOLE)) && (alturaComp <= (CAIDA + TOLE))) {
       caidaConfirm = true;
+      alarma_ON = true;
+
       Serial.println("El paciente sufrio una caida");
-      mensajeCaida();
       //Envia a la App un aviso cuando se detecta una caida
       Blynk.virtualWrite(vCAIDA_PIN, CAIDA_SI);
       //Blynk.notify("DPS310 detected a fall!");
     }
+    mensajeCaida();
     altAnterior = altActual;  //actualiza el valor pasado al actual
     tiempoPasado = tiempoActual;
     caidaConfirm = false;

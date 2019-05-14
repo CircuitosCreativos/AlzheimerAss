@@ -31,8 +31,8 @@
 //LCD Nokia 5110
 U8G2_PCD8544_84X48_F_4W_SW_SPI u8g2(U8G2_R0, CLK, DIN, CE, DC, RST);
 HardwareSerial HC05(2);   //Usaremos la UART2 del ESP32
-BlynkTimer timer;
-WidgetRTC rtc;
+BlynkTimer timer;   //Temporizador para llamar funciones periodicamente
+WidgetRTC rtc;      //Reloj en tiempo real para mostrar hora en el LCD
 //------------------------------------------------------------
 
 //Declaramos las variables globales necesarias
@@ -44,6 +44,7 @@ char pass[] = "Administrador";  //Contraseña (WPA2)
 //Banderas de control
 bool caidaConfirm = false;//Indica si el paciente sufrio una caida
 bool btConectado = false; //Indica si la conexion bluetooth se establecio
+bool alarma_ON = false;   //Controla el tiempo de las alarmas
 
 //Variables medidas por el sensor Hub
 float temp;
@@ -51,6 +52,7 @@ float pres;
 float altActual;
 float altAnterior;
 unsigned long tiempoPasado = 0; //ayuda a medir el tiempo transcurrido
+int tiempoContador = 0;   //Cuenta el tiempo transcurrido en ms
 //------------------------------------------------------------
 
 //Funcion de configuracion
@@ -61,13 +63,16 @@ void setup() {
 
   //Establecemos los intervalos de tiempos para disparar las funciones
   timer.setInterval(1000L, enviaDatosSensor);
-  timer.setInterval(3000L, verHoraFecha);
-
+  timer.setInterval(5000L, verHoraFecha);
+  
   u8g2.setBusClock(SPI_CLK);//EL driver del LCD trabaja excelente a 1MHz
   u8g2.begin(); //iniciamos el LCD Nokia 5110
 
   //configuramos los pines de entrada/salida
   pinMode(STATUS, INPUT);
+  pinMode(PANIC, INPUT);
+  pinMode(BUZZ, OUTPUT);
+  pinMode(LED, OUTPUT);
   pinMode(BL, OUTPUT);
 
   //Activamos la luz de fondo y mostramos el mensaje de inicio

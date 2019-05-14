@@ -15,6 +15,11 @@
 #define RXD2      16
 #define TXD2      17
 
+//Alarmas
+#define PANIC     25
+#define BUZZ      26
+#define LED       27
+
 //parametros constantes
 //Comandos sensor Hub nano
 //Defining Sensor Hub Nano board commands
@@ -36,7 +41,7 @@
 
 //Deteccion de caidas
 #define INTERVALO     1000  //intervalo de tiempo revisar caidas (1seg)
-#define CAIDA         70    //Umbral de 0.7m para detectar una caida
+#define CAIDA         60    //Umbral de 60cm para detectar una caida
 #define TOLE          20    //Margen de tolerancia para detectar caidas
 #define CAIDA_SI      255
 #define CAIDA_NO      0

@@ -65,7 +65,7 @@ void verHoraFecha() {
   if (year() == 1970 && Serial.available()) {
     Serial.println("El reloj no esta sincronizado!!");
   }
-  else if (year() != 1970) {
+  else if (year() != 1970 && alarma_ON == false) {
     char bufHours[3];
     char bufColon[2];
     char bufMinutes[3];
@@ -97,12 +97,19 @@ void verHoraFecha() {
 
 //muestra un mensaje cuando el paciente sufre una caida
 void mensajeCaida() {
-  u8g2.clearBuffer();
-  u8g2.setFont(u8g2_font_7x13B_tf);
-  u8g2.drawStr(27, 20, "Paciente");
-  u8g2.drawStr(27, 20, "Sufrio");
-  u8g2.drawStr(13, 32, "CAIDA!!");
-  u8g2.sendBuffer();
-  delay(1000);
+  if (alarma_ON == true && tiempoContador < 5) {
+    u8g2.clearBuffer();
+    u8g2.setFont(u8g2_font_7x13B_tf);
+    u8g2.drawStr(10, 10, "Paciente");
+    u8g2.drawStr(15, 22, "Sufrio");
+    u8g2.drawStr(13, 34, "CAIDA!!");
+    u8g2.sendBuffer();
+
+    alarma(250, 3);
+  }
+  else {
+    tiempoContador = 0;
+    alarma_ON = false;
+  }
 }
 //------------------------------------------------------------
