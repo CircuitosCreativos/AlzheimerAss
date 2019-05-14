@@ -84,7 +84,31 @@ void menuAlarmas() {
       break;
 
     case EJERCICIO:
-      mensajeEjercicio();
+      mensajeEvento("EJERCICIO!!");
+      if (tiempoContador == 0) {
+        alarma(FREC_CAIDA, 4);
+      }
+      else if (tiempoContador > 20) {
+        estadoActual = estado::HORA_FECHA;
+        tiempoContador = 0;
+      }
+      tiempoContador++;
+      break;
+
+    case MEDICAMENTO:
+      mensajeEvento("MEDICAMENTO!!");
+      if (tiempoContador == 0) {
+        alarma(FREC_CAIDA, 4);
+      }
+      else if (tiempoContador > 20) {
+        estadoActual = estado::HORA_FECHA;
+        tiempoContador = 0;
+      }
+      tiempoContador++;
+      break;
+
+    case SANITARIO:
+      mensajeEvento("SANITARIO!!");
       if (tiempoContador == 0) {
         alarma(FREC_CAIDA, 4);
       }

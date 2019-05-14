@@ -7,22 +7,24 @@ BLYNK_CONNECTED() {
 
 //verificamos con el Widget de eventos es hora de hacer ejercicio,
 //ir al baño o tomar medicamentos
-BLYNK_WRITE(vEVENTOR_PIN){
+BLYNK_WRITE(vEVENTOR_PIN) {
   int valor =  param.asInt();
 
-  switch(valor){
+  switch (valor) {
     case 1:
-    estadoActual= estado::EJERCICIO;
-    tiempoContador = 0;
-    break;
+      estadoActual = estado::EJERCICIO;
+      tiempoContador = 0;
+      break;
 
     case 2:
-    estadoActual= estado::MEDICAMENTO;
-    break;
+      estadoActual = estado::MEDICAMENTO;
+      tiempoContador = 0;
+      break;
 
     case 3:
-    estadoActual= estado::SANITARIO;
-    break;
+      estadoActual = estado::SANITARIO;
+      tiempoContador = 0;
+      break;
   }
 }
 //------------------------------------------------------------
