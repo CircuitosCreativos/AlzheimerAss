@@ -94,3 +94,15 @@ void verHoraFecha() {
   }
 }
 //------------------------------------------------------------
+
+//muestra un mensaje cuando el paciente sufre una caida
+void mensajeCaida() {
+  u8g2.clearBuffer();
+  u8g2.setFont(u8g2_font_7x13B_tf);
+  u8g2.drawStr(27, 20, "Paciente");
+  u8g2.drawStr(27, 20, "Sufrio");
+  u8g2.drawStr(13, 32, "CAIDA!!");
+  u8g2.sendBuffer();
+  delay(1000);
+}
+//------------------------------------------------------------

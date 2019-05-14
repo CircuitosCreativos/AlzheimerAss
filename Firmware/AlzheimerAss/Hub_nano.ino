@@ -37,7 +37,7 @@ void leerDatosSensor() {
     pres = HC05.parseFloat();
 
     datos = HC05.readStringUntil('a');
-    altura = HC05.parseFloat();
+    altActual = HC05.parseFloat();
 
     datos = HC05.readStringUntil('\n');
   }

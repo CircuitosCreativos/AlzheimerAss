@@ -42,12 +42,15 @@ char ssid[] = "Nexxt_505B10";   //Nombre de la red
 char pass[] = "Administrador";  //Contraseña (WPA2)
 
 //Banderas de control
+bool caidaConfirm = false;//Indica si el paciente sufrio una caida
 bool btConectado = false; //Indica si la conexion bluetooth se establecio
 
 //Variables medidas por el sensor Hub
 float temp;
 float pres;
-float altura;
+float altActual;
+float altAnterior;
+unsigned long tiempoPasado = 0; //ayuda a medir el tiempo transcurrido
 //------------------------------------------------------------
 
 //Funcion de configuracion
@@ -101,4 +104,6 @@ void loop() {
   //Aqui se puede colocar cogido adicional dependiendo del proyecto
   //Recuerde evitar la funcion delay();
   leerDatosSensor();
+  confirmarCaida();
 }
+//------------------------------------------------------------

@@ -28,12 +28,18 @@
 #define STOP          "$stop id="
 
 //Aplicacion Blynk Alzheimer_Ass
-//Defining Blynk virtual pins
 #define vTEMP_PIN     V0    //pin virtual temperatura en la App
 #define vPRES_PIN     V1    //pin virtual presion barometrica en la App
 #define vALTURA_PIN   V2    //pin virtual altura en la App
 #define vEVENTOR_PIN  V3    //pin virtual en la App
-#define vFALL_PIN     V4    //pin virtual en la App
+#define vCAIDA_PIN    V4    //pin virtual en la App
+
+//Deteccion de caidas
+#define INTERVALO     1000  //intervalo de tiempo revisar caidas (1seg)
+#define CAIDA         70    //Umbral de 0.7m para detectar una caida
+#define TOLE          20    //Margen de tolerancia para detectar caidas
+#define CAIDA_SI      255
+#define CAIDA_NO      0
 
 //Pantalla Nokia 5110
 #define SPI_CLK   1000000 //Velocidad bus SPI (1MHz)    
